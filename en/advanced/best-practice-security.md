@@ -156,19 +156,13 @@ app.use(session({
 
 Using npm to manage your application's dependencies is powerful and convenient.  But the packages that you use may contain critical security vulnerabilities that could also affect your application.  The security of your app is only as strong as the "weakest link" in your dependencies.
 
-Use either or both of the following two tools to help ensure the security of third-party packages that you use: [nsp](https://www.npmjs.com/package/nsp) and [Snyk](https://snyk.io/).
-
-[nsp](https://www.npmjs.com/package/nsp) is a command-line tool that checks the [Node Security Project](https://nodesecurity.io/) vulnerability database to determine if your application uses packages with known vulnerabilities. Install it as follows:
+Since npm@6, npm automatically reviews every install request. Also you can use 'npm audit' to analyze your dependency tree.
 
 ```sh
-$ npm i nsp -g
+$ npm audit
 ```
 
-Use this command to submit the `npm-shrinkwrap.json` / `package.json` files for validation to [nodesecurity.io](https://nodesecurity.io/):
-
-```sh
-$ nsp check
-```
+If you want to stay more secure, consider [Snyk](https://snyk.io/).
 
 Snyk offers both a [command-line tool](https://www.npmjs.com/package/snyk) and a [Github integration](https://snyk.io/docs/github) that checks your application against [Snyk's open source vulnerability database](https://snyk.io/vuln/) for any known vulnerabilities in your dependencies. Install the CLI as follows:
 
@@ -199,7 +193,7 @@ Finally, Express apps - like any other web apps - can be vulnerable to a variety
 
 Here are some further recommendations from the excellent [Node.js Security Checklist](https://blog.risingstack.com/node-js-security-checklist/).  Refer to that blog post for all the details on these recommendations:
 
-* Implement rate-limiting to prevent brute-force attacks against authentication.  One way to do this is to use [StrongLoop API Gateway](https://strongloop.com/node-js/api-gateway/) to enforce a rate-limiting policy.  Alternatively, you can use middleware such as [express-limiter](https://www.npmjs.com/package/express-limiter), but doing so will require you to modify your code somewhat.
+* Implement rate-limiting to prevent brute-force attacks against authentication.  One way to do this is to use [StrongLoop Microgateway](https://github.com/strongloop/microgateway) to enforce a rate-limiting policy.  Alternatively, you can use package such as [rate-limiter-flexible](https://github.com/animir/node-rate-limiter-flexible) and configure limits.
 * Use [csurf](https://www.npmjs.com/package/csurf) middleware to protect against cross-site request forgery (CSRF).
 * Always filter and sanitize user input to protect against cross-site scripting (XSS) and command injection attacks.
 * Defend against SQL injection attacks by using parameterized queries or prepared statements.
